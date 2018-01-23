@@ -1,0 +1,101 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.maintainence-message{
+    background-color: red;
+    color:white;
+    height:20px;
+    text-align: center;
+}
+
+.top-bar {
+    background-color: #9ACAEE;
+    height: 100px;
+    width:100%;
+    color:#FFFFFF;
+}
+
+.logo{
+    width:100px;
+    height:100px;
+    margin-left:30px;
+}
+
+.account-button{
+    background-color:#9ACAEE;
+    border: none;
+    float:right;
+    margin-top:-133px;
+    margin-right:200px;
+}
+
+ul.navbar-nav{
+    list-style:none;
+    position:relative;
+    float:left;
+    color: #FFFFFF;
+    margin-left:100px;
+    margin-top:-62px;
+}
+
+.nav-item{
+    margin-left:10px;
+    margin-right:10px;
+    color:#FFFFFF;
+    font-size:14pt;
+}
+
+.dropdown-menu{
+    position:relative;
+    float:right;
+    margin-right:170px;
+    margin-top:-100px
+}
+
+.content {
+    width:100%;
+    padding: 0px;
+}
+
+.container{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.top-content{
+    min-height: 100px;
+    background-color: #C9E5FA;
+    margin-top:5px;
+    margin-bottom:5px;
+
+}
+
+.leftColumn{
+    background-color: #C9E5FA;
+    height:100vh;
+}
+
+.centerColumn{
+    background-color: #FBFDFF;
+    height:100vh;
+}
+
+.rightColumn{
+    background-color: #C9E5FA;
+    height:100vh;
+}
+
+footer {
+    background-color: #4B8EC1;
+    text-align:center;
+    color:white;
+}

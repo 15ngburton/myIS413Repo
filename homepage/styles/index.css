@@ -1,0 +1,13 @@
+h4.utc-time {
+    color: #AA3333;
+}
+
+.server-time {
+    font-size: 2em;
+    color: red;
+}
+
+div.top-content{
+    background-color:#FFF;
+    height:1000px;
+}

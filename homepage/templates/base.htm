@@ -1,0 +1,83 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <head>
+
+        <title>DMP</title>
+
+        ## add any site-wide scripts or CSS here; for example, jquery:
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="${ STATIC_URL }homepage/media/bootstrap/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="${ STATIC_URL }homepage/media/bootstrap/css/bootstrap.min.css">
+
+        <link rel="icon" href = "${ STATIC_URL }homepage/media/img/fomo.jpg">
+
+        ## render the static file links with the same name as this template
+        <script src="/django_mako_plus/dmp-common.min.js"></script>
+        ${ django_mako_plus.links(self) }
+
+        <link rel="stylesheet" type="text/css" href="${ STATIC_URL }homepage/styles/base.css">
+
+    </head>
+    <body>
+
+        <title>FOMO Instruments</title>
+
+        <div class = "maintainence-message">This website is currently under construction</div>
+
+            <header class = 'top-bar'>
+                <img src="${ STATIC_URL }homepage/media/img/fomo.jpg" alt="Logo" class = "logo">
+               <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+                    <%block name = "menu">
+                    </%block>
+                </nav>
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle account-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Account
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Log Out</a></li>
+                  </ul>
+                </div>
+            </header>
+
+
+        <body class = "content">
+            <div class = "container">
+                <%block name = "top_content">
+                    <div class = "row top-content">
+                    </div>
+                </%block>
+                <div class = "row">
+                    <%block name = "left_column">
+                        <div class = "col-xs-2 leftColumn">
+                        </div>
+                    </%block>
+                    <%block name = "center_column">
+                        <div class = "col-xs-8 centerColumn">
+                            <%block name = "content">
+                            </%block>
+                        </div>
+                    </%block>
+                    <%block name = "right_column">
+                        <div class = "col-xs-2 rightColumn">
+                        </div>
+                    </%block>
+                </div>
+            </div>
+
+        </body>
+
+    <footer>
+        <%block name="body_footer">
+           <%! from datetime import datetime %>
+            &copy Copyright ${ datetime.now().year }. All rights reserved.
+        </%block>
+    </footer>
+</html>

@@ -1,0 +1,31 @@
+.maintainence-message{
+    background-color: red;
+    color:white;
+}
+
+.top-bar {
+    background-color: black;
+    color:white;
+}
+
+.top-content{
+    background-color: yellow;
+}
+
+.leftColumn{
+    background-color: green;
+}
+
+.centerColumn{
+    background-color: blue;
+}
+
+.rightColumn{
+    background-color: purple;
+}
+
+footer {
+    background-color: brown;
+    color:white;
+}
+
