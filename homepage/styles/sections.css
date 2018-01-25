@@ -1,31 +1,38 @@
 .maintainence-message{
-    background-color: red;
-    color:white;
+  background-color: red;
+  color:white;
+  height:50px;
+  text-align: center;
 }
 
-.top-bar {
+.topBar {
     background-color: black;
     color:white;
+    height:100px;
+
 }
 
-.top-content{
+.sectionTop-content{
     background-color: yellow;
 }
 
-.leftColumn{
+.sectionLeftColumn{
     background-color: green;
+    height:100vh;
 }
 
-.centerColumn{
+.sectionCenterColumn{
     background-color: blue;
+    height:100vh
 }
 
-.rightColumn{
+.sectionRightColumn{
     background-color: purple;
+    height:100vh
 }
 
-footer {
+footer.sectionFoot {
     background-color: brown;
     color:white;
+    height:30px;
 }
-

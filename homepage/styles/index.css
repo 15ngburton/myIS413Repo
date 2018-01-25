@@ -9,5 +9,25 @@ h4.utc-time {
 
 div.top-content{
     background-color:#FFF;
-    height:1000px;
+    height:700px;
+    text-align: center;
+}
+
+img.hero{
+  width:100%;
+  height:auto;
+}
+
+h1.hero-heading{
+  font-size: 72pt;
+  font-weight:bold;
+}
+
+button.hero-btn{
+  width:125px;
+  height:67px;
+  font-size:16pt;
+  background-color:#9ACAEE;
+  color: #000;
+  font-weight:bold;
 }

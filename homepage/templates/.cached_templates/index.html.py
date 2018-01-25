@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1516737341.5558057
+_modified_time = 1516764415.417529
 _enable_loop = True
 _template_filename = 'C:/Users/15ngb/Desktop/Fomo/fomo/homepage/templates/index.html'
 _template_uri = 'index.html'
@@ -29,12 +29,13 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
+        def center_column():
+            return render_center_column(context._locals(__M_locals))
         def left_column():
             return render_left_column(context._locals(__M_locals))
         def top_content():
             return render_top_content(context._locals(__M_locals))
-        def center_column():
-            return render_center_column(context._locals(__M_locals))
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def right_column():
             return render_right_column(context._locals(__M_locals))
         __M_writer = context.writer()
@@ -67,10 +68,13 @@ def render_body(context,**pageargs):
 def render_top_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
+        STATIC_URL = context.get('STATIC_URL', UNDEFINED)
         def top_content():
             return render_top_content(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <div class = "row top-content">\r\n\r\n    </div>\r\n')
+        __M_writer('\r\n  <div class = "top-content">\r\n    <div class = "row">\r\n      <div class = "col-md-6 col-xs-12">\r\n        <img src = "')
+        __M_writer(str( STATIC_URL ))
+        __M_writer('homepage/media/img/instrument.png" alt = "Instrument" class = "hero">\r\n      </div>\r\n      <div class = "col-md-6 col-xs-12">\r\n        <br><br><br><br><br>\r\n        <h1 class = "hero-heading">Fomo Instruments</h1>\r\n        <hr>\r\n        <a href = \'/faq/\'><button class = "btn hero-btn">Rent now</button></a>\r\n      </div>\r\n    </div>\r\n  </div>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -114,6 +118,6 @@ def render_right_column(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "C:/Users/15ngb/Desktop/Fomo/fomo/homepage/templates/index.html", "uri": "index.html", "source_encoding": "utf-8", "line_map": {"28": 0, "41": 1, "46": 7, "51": 10, "56": 13, "61": 16, "67": 3, "73": 3, "79": 9, "85": 9, "91": 12, "97": 12, "103": 15, "109": 15, "115": 109}}
+{"filename": "C:/Users/15ngb/Desktop/Fomo/fomo/homepage/templates/index.html", "uri": "index.html", "source_encoding": "utf-8", "line_map": {"28": 0, "42": 1, "47": 17, "52": 20, "57": 23, "62": 26, "68": 3, "75": 3, "76": 7, "77": 7, "83": 19, "89": 19, "95": 22, "101": 22, "107": 25, "113": 25, "119": 113}}
 __M_END_METADATA
 """

@@ -1,9 +1,19 @@
 <%inherit file="app_base.htm" />
 
 <%block name="top_content">
-    <div class = "row top-content">
-
+  <div class = "top-content">
+    <div class = "row">
+      <div class = "col-md-6 col-xs-12">
+        <img src = "${ STATIC_URL }homepage/media/img/instrument.png" alt = "Instrument" class = "hero">
+      </div>
+      <div class = "col-md-6 col-xs-12">
+        <br><br><br><br><br>
+        <h1 class = "hero-heading">Fomo Instruments</h1>
+        <hr>
+        <a href = '/faq/'><button class = "btn hero-btn">Rent now</button></a>
+      </div>
     </div>
+  </div>
 </%block>
 
 <%block name="left_column">

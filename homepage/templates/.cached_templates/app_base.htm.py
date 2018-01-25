@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1516735258.996054
+_modified_time = 1516762768.6176772
 _enable_loop = True
 _template_filename = 'C:/Users/15ngb/Desktop/Fomo/fomo/homepage/templates/app_base.htm'
 _template_uri = 'app_base.htm'
@@ -29,6 +29,7 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
+        request = context.get('request', UNDEFINED)
         def menu():
             return render_menu(context._locals(__M_locals))
         __M_writer = context.writer()
@@ -46,10 +47,23 @@ def render_body(context,**pageargs):
 def render_menu(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
+        request = context.get('request', UNDEFINED)
         def menu():
             return render_menu(context)
         __M_writer = context.writer()
-        __M_writer('\r\n    <ul class="navbar-nav">\r\n       <li class="nav-item active">\r\n       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>\r\n       </li>\r\n       <li class="nav-item">\r\n       <a class="nav-link" href="#">Features</a>\r\n       </li>\r\n       <li class="nav-item">\r\n       <a class="nav-link" href="#">Pricing</a>\r\n       </li>\r\n       <li class="nav-item">\r\n       <a class="nav-link disabled" href="#">Disabled</a>\r\n       </li>\r\n    </ul>\r\n')
+        __M_writer('\r\n    <ul class="navbar-nav">\r\n\r\n       <li class="nav-item ')
+        __M_writer(str( 'active' if request.dmp_router_page == 'index' else '' ))
+        __M_writer('">\r\n       <a class="nav-link " href="/index/">Home<span class="sr-only">(current)</span></a>\r\n       </li>\r\n       \r\n       <li class="nav-item ')
+        __M_writer(str( 'active' if request.dmp_router_page == 'about' else '' ))
+        __M_writer('">\r\n       <a class="nav-link " href="/about/">About</a>\r\n       </li>\r\n\r\n       <li class="nav-item ')
+        __M_writer(str( 'active' if request.dmp_router_page == 'contact' else '' ))
+        __M_writer('">\r\n       <a class="nav-link" href="/contact/">Contact</a>\r\n       </li>\r\n\r\n       <li class="nav-item ')
+        __M_writer(str( 'active' if request.dmp_router_page == 'faq' else '' ))
+        __M_writer('">\r\n       <a class="nav-link disabled" href="/faq/">FAQ</a>\r\n       </li>\r\n\r\n       <li class="nav-item ')
+        __M_writer(str( 'active' if request.dmp_router_page == 'terms' else '' ))
+        __M_writer('">\r\n       <a class="nav-link disabled" href="/terms/">Terms</a>\r\n       </li>\r\n\r\n       <li class="nav-item ')
+        __M_writer(str( 'active' if request.dmp_router_page == 'sections' else '' ))
+        __M_writer('">\r\n       <a class="nav-link disabled" href="/sections/">Sections</a>\r\n       </li>\r\n\r\n    </ul>\r\n')
         return ''
     finally:
         context.caller_stack._pop_frame()
@@ -57,6 +71,6 @@ def render_menu(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "C:/Users/15ngb/Desktop/Fomo/fomo/homepage/templates/app_base.htm", "uri": "app_base.htm", "source_encoding": "utf-8", "line_map": {"28": 0, "35": 1, "40": 18, "46": 3, "52": 3, "58": 52}}
+{"filename": "C:/Users/15ngb/Desktop/Fomo/fomo/homepage/templates/app_base.htm", "uri": "app_base.htm", "source_encoding": "utf-8", "line_map": {"28": 0, "36": 1, "41": 31, "47": 3, "54": 3, "55": 6, "56": 6, "57": 10, "58": 10, "59": 14, "60": 14, "61": 18, "62": 18, "63": 22, "64": 22, "65": 26, "66": 26, "72": 66}}
 __M_END_METADATA
 """
