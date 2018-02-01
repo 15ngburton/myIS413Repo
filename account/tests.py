@@ -3,65 +3,53 @@ from django.test import TestCase
 from django.contrib.auth import models as dmod
 from account import models as amod
 import datetime
-import twi
 
 
 class UserModelTest(TestCase):
 
+    fixtures = [ 'data.yaml' ]
+
+    def setUp(self):
+        self.u1 = amod.User()
+        self.u1.first_name = "Marge"
+        self.u1.last_name = "Simpson"
+        self.u1.email = "marge@simpsons.com"
+        self.u1.set_password('password')
+        self.u1.is_staff = True
+        self.u1.is_active = True
+        self.u1.last_login = datetime.date.today()
+        self.u1.date_joined = datetime.date.today()
+        self.u1.address = "This is an address"
+        self.u1.city = "This is a city"
+        self.u1.state = "This is a state"
+        self.u1.zip = "11111"
+        self.u1.save()
 
     def test_user_create_save_load(self):
         '''Tests round trip of user model to from database'''
-        u1 = amod.User()
-        u1.first_name = "Marge"
-        u1.last_name = "Simpson"
-        u1.email = "marge@simpsons.com"
-        u1.set_password('password')
-        u1.is_staff = True
-        u1.is_active = True
-        u1.last_login = datetime.date.today()
-        u1.date_joined = datetime.date.today()
-        u1.address = "This is an address"
-        u1.city = "This is a city"
-        u1.state = "This is a state"
-        u1.zip = "11111"
-        u1.save()
-        u2 = amod.User.objects.get(email=u1.email)
-        self.assertEquals(u1.first_name, u2.first_name)
-        self.assertEquals(u1.last_name, u2.last_name)
-        self.assertEquals(u1.email, u2.email)
-        self.assertEquals(u1.password, u2.password)
-        self.assertEquals(u1.is_staff, u2.is_staff)
-        self.assertEquals(u1.is_active, u2.is_active)
-        self.assertEquals(u1.last_login.year, u2.last_login.year)
-        self.assertEquals(u1.last_login.month, u2.last_login.month)
-        self.assertEquals(u1.last_login.day, u2.last_login.day)
-        self.assertEquals(u1.date_joined.year, u2.date_joined.year)
-        self.assertEquals(u1.date_joined.month, u2.date_joined.month)
-        self.assertEquals(u1.date_joined.day, u2.date_joined.day)
-        self.assertEquals(u1.address, u2.address)
-        self.assertEquals(u1.city, u2.city)
-        self.assertEquals(u1.state, u2.state)
-        self.assertEquals(u1.zip, u2.zip)
-        self.assertEquals(u1.is_authenticated, u2.is_authenticated)
-        self.assertEquals(u1.is_anonymous, u2.is_anonymous)
+        u2 = amod.User.objects.get(email=self.u1.email)
+        self.assertEquals(self.u1.first_name, u2.first_name)
+        self.assertEquals(self.u1.last_name, u2.last_name)
+        self.assertEquals(self.u1.email, u2.email)
+        self.assertEquals(self.u1.password, u2.password)
+        self.assertEquals(self.u1.is_staff, u2.is_staff)
+        self.assertEquals(self.u1.is_active, u2.is_active)
+        self.assertEquals(self.u1.last_login.year, u2.last_login.year)
+        self.assertEquals(self.u1.last_login.month, u2.last_login.month)
+        self.assertEquals(self.u1.last_login.day, u2.last_login.day)
+        self.assertEquals(self.u1.date_joined.year, u2.date_joined.year)
+        self.assertEquals(self.u1.date_joined.month, u2.date_joined.month)
+        self.assertEquals(self.u1.date_joined.day, u2.date_joined.day)
+        self.assertEquals(self.u1.address, u2.address)
+        self.assertEquals(self.u1.city, u2.city)
+        self.assertEquals(self.u1.state, u2.state)
+        self.assertEquals(self.u1.zip, u2.zip)
+        self.assertEquals(self.u1.is_authenticated, u2.is_authenticated)
+        self.assertEquals(self.u1.is_anonymous, u2.is_anonymous)
 
 
     def test_groups(self):
         '''Makes sure that permissions can be accessed through groups.'''
-        u1 = amod.User()
-        u1.first_name = "Marge"
-        u1.last_name = "Simpson"
-        u1.email = "marge@simpsons.com"
-        u1.set_password('password')
-        u1.is_staff = True
-        u1.is_active = True
-        u1.last_login = datetime.date.today()
-        u1.date_joined = datetime.date.today()
-        u1.address = "This is an address"
-        u1.city = "This is a city"
-        u1.state = "This is a state"
-        u1.zip = "11111"
-        u1.save()
         u2 = amod.User()
         u2.first_name = "Gerald"
         u2.last_name = "Ford"
@@ -89,33 +77,22 @@ class UserModelTest(TestCase):
         g2.save()
         g2.permissions.set([p2, p3])
         g2.save()
-        u1.groups.set([g1, g2])
+        self.u1.groups.set([g1])
+        self.u1.save()
         u2.groups.set([g2])
-        u1.save()
+        print("+++++++")
+        print(u2.groups)
         u2.save()
-        self.assertEquals(p1.first_name, u2.first_name)
-        self.assertEquals(u1.first_name, u2.first_name)
-        self.assertEquals(u1.first_name, u2.first_name)
-        self.assertEquals(u1.first_name, u2.first_name)
-        self.assertEquals(u1.first_name, u2.first_name)
-        
+        self.assertTrue(self.u1.has_perm(p1.content_type.app_label + "." + p1.codename))
+        self.assertTrue(self.u1.has_perm(p2.content_type.app_label + "." + p2.codename))
+        self.assertFalse(self.u1.has_perm(p3.content_type.app_label + "." + p3.codename))
+        self.assertFalse(u2.has_perm(p2.content_type.app_label + "." + p2.codename))
+        self.assertFalse(u2.has_perm(p3.content_type.app_label + "." + p3.codename))
+        self.assertFalse(u2.has_perm(p1.content_type.app_label + "." + p1.codename))
+
 
     def test_permissions(self):
         '''Makes sure that permissions can be accessed through users.'''
-        u1 = amod.User()
-        u1.first_name = "Marge"
-        u1.last_name = "Simpson"
-        u1.email = "marge@simpsons.com"
-        u1.set_password('password')
-        u1.is_staff = True
-        u1.is_active = True
-        u1.last_login = datetime.date.today()
-        u1.date_joined = datetime.date.today()
-        u1.address = "This is an address"
-        u1.city = "This is a city"
-        u1.state = "This is a state"
-        u1.zip = "11111"
-        u1.save()
         u2 = amod.User()
         u2.first_name = "Gerald"
         u2.last_name = "Ford"
@@ -133,15 +110,15 @@ class UserModelTest(TestCase):
         p1 = dmod.Permission.objects.get(id = 1)
         p2 = dmod.Permission.objects.get(id = 2)
         p3 = dmod.Permission.objects.get(id = 3)
-        u1.user_permissions.set([p1, p2])
+        self.u1.user_permissions.set([p1, p2])
         u2.user_permissions.set([p2, p3])
-        u1.save()
+        self.u1.save()
         u2.save()
 
-    def test_login(self):
+    #def test_login(self):
         '''Test to make sure that logging in functions properly'''
 
-    def test_logout(self):
+    #def test_logout(self):
         '''Test to make sure that logging out functions properly'''
 
     def test_passwords(self):
@@ -154,21 +131,7 @@ class UserModelTest(TestCase):
 
     def test_changing_information(self):
         '''Test to make sure that changing information can work'''
-        u1 = amod.User()
-        u1.first_name = "Marge"
-        u1.last_name = "Simpson"
-        u1.email = "marge@simpsons.com"
-        u1.set_password('password')
-        u1.is_staff = True
-        u1.is_active = True
-        u1.last_login = datetime.date.today()
-        u1.date_joined = datetime.date.today()
-        u1.address = "This is an address"
-        u1.city = "This is a city"
-        u1.state = "This is a state"
-        u1.zip = "11111"
-        u1.save()
-        u2 = amod.User.objects.get(email=u1.email)
+        u2 = amod.User.objects.get(email=self.u1.email)
         u2.first_name = "Gerald"
         u2.last_name = "Ford"
         u2.email = "VP2POTUS@whitehouse.com"
