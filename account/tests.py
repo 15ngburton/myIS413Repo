@@ -55,8 +55,8 @@ class UserModelTest(TestCase):
         u2.last_name = "Ford"
         u2.email = "VP2POTUS@whitehouse.com"
         u2.set_password('richNixon')
-        u2.is_staff = False
-        u2.is_active = False
+        u2.is_staff = True
+        u2.is_active = True
         u2.last_login = datetime.date.today() + datetime.timedelta(days = -5392)
         u2.date_joined = datetime.date.today() + datetime.timedelta(days = -2395)
         u2.address = "My address"
@@ -66,29 +66,28 @@ class UserModelTest(TestCase):
         u2.save()
         p1 = dmod.Permission.objects.get(id = 1)
         p2 = dmod.Permission.objects.get(id = 2)
-        p3 = dmod.Permission.objects.get(id = 3)
+        p3 = dmod.Permission.objects.get(id = 101)
         g1 = dmod.Group()
         g1.name = "Awesome Users"
         g1.save()
         g1.permissions.set([p1, p2])
         g1.save()
-        g2 = dmod.Group()
-        g2.name = "Other Users"
-        g2.save()
-        g2.permissions.set([p2, p3])
-        g2.save()
-        self.u1.groups.set([g1])
+        gr2 = dmod.Group()
+        gr2.name = "Other Users"
+        gr2.save()
+        gr2.permissions.set([p2, p3])
+        gr2.save()
+        self.u1.groups.add(g1)
         self.u1.save()
-        u2.groups.set([g2])
-        print("+++++++")
-        print(u2.groups)
+        u2.groups.add(gr2)
         u2.save()
         self.assertTrue(self.u1.has_perm(p1.content_type.app_label + "." + p1.codename))
         self.assertTrue(self.u1.has_perm(p2.content_type.app_label + "." + p2.codename))
         self.assertFalse(self.u1.has_perm(p3.content_type.app_label + "." + p3.codename))
-        self.assertFalse(u2.has_perm(p2.content_type.app_label + "." + p2.codename))
-        self.assertFalse(u2.has_perm(p3.content_type.app_label + "." + p3.codename))
         self.assertFalse(u2.has_perm(p1.content_type.app_label + "." + p1.codename))
+        self.assertTrue(u2.has_perm(p2.content_type.app_label + "." + p2.codename))
+        self.assertTrue(u2.has_perm(p3.content_type.app_label + "." + p3.codename))
+
 
 
     def test_permissions(self):
@@ -98,8 +97,8 @@ class UserModelTest(TestCase):
         u2.last_name = "Ford"
         u2.email = "VP2POTUS@whitehouse.com"
         u2.set_password('richNixon')
-        u2.is_staff = False
-        u2.is_active = False
+        u2.is_staff = True
+        u2.is_active = True
         u2.last_login = datetime.date.today() + datetime.timedelta(days = -5392)
         u2.date_joined = datetime.date.today() + datetime.timedelta(days = -2395)
         u2.address = "My address"
@@ -109,11 +108,17 @@ class UserModelTest(TestCase):
         u2.save()
         p1 = dmod.Permission.objects.get(id = 1)
         p2 = dmod.Permission.objects.get(id = 2)
-        p3 = dmod.Permission.objects.get(id = 3)
+        p3 = dmod.Permission.objects.get(id = 101)
         self.u1.user_permissions.set([p1, p2])
-        u2.user_permissions.set([p2, p3])
         self.u1.save()
+        u2.user_permissions.set([p2, p3])
         u2.save()
+        self.assertTrue(self.u1.has_perm(p1.content_type.app_label + "." + p1.codename))
+        self.assertTrue(self.u1.has_perm(p2.content_type.app_label + "." + p2.codename))
+        self.assertFalse(self.u1.has_perm(p3.content_type.app_label + "." + p3.codename))
+        self.assertFalse(u2.has_perm(p1.content_type.app_label + "." + p1.codename))
+        self.assertTrue(u2.has_perm(p2.content_type.app_label + "." + p2.codename))
+        self.assertTrue(u2.has_perm(p3.content_type.app_label + "." + p3.codename))
 
     #def test_login(self):
         '''Test to make sure that logging in functions properly'''
