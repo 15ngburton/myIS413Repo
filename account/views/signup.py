@@ -34,9 +34,10 @@ class TestForm(Formless):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        emailProxy = amod.User.objects.get(email = email)
-        if not emailProxy:
+        emailProxy = amod.User.objects.filter(email = email)
+        if emailProxy:
             raise forms.ValidationError("Email already in system")
+        return email
 
     def clean(self):
         password = self.cleaned_data.get("password")
